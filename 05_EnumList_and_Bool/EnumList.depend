@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1750191218 source:e:\programming fontos\c\projects\enumlist\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<locale.h>
+

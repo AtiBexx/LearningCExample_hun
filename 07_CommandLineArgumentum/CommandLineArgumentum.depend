@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1750219814 source:e:\programming fontos\c\projects\commandlineargumentum\main.c
+	<stdio.h>
+	<stdlib.h>
+

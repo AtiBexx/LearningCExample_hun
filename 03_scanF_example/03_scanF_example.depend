@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1750022140 source:e:\programming fontos\c\projects\03_scanf_example\main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bináris Számítások és Bitwise Programozás</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 2.8em;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.08);
+            margin: 25px 0;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #4ecdc4;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .section h2 {
+            color: #4ecdc4;
+            margin-top: 0;
+            font-size: 1.8em;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        th {
+            background: rgba(255, 255, 255, 0.15);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9em;
+        }
+        
+        tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .binary {
+            font-family: 'Courier New', monospace;
+            color: #ff6b6b;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            border-left: 4px solid #ff6b6b;
+            overflow-x: auto;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        
+        .step-by-step {
+            background: linear-gradient(45deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .calculation {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .calc-step {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .highlight {
+            background: rgba(255, 255, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #000;
+            font-weight: bold;
+        }
+        
+        .warning {
+            background: rgba(255, 107, 107, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ff6b6b;
+            margin: 15px 0;
+        }
+        
+        .info {
+            background: rgba(78, 205, 196, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #4ecdc4;
+            margin: 15px 0;
+        }
+        
+        .tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px 10px 0 0;
+            overflow: hidden;
+        }
+        
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.05);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .tab:hover, .tab.active {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .tab-content {
+            display: none;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .calculation {
+                grid-template-columns: 1fr;
+            }
+            .tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔢 Bináris Számítások és Bitwise Programozás</h1>
+        
+        <div class="section">
+            <h2>💡 Bináris Java Program - Lehetséges?</h2>
+            <div class="warning">
+                <strong>Válasz:</strong> Elméletileg igen, de gyakorlatilag lehetetlen! Egy Java program bytecode-ra fordítódik, amit aztán a JVM futtat. 
+                A bytecode már gépi kódhoz hasonló, de még mindig magasabb szintű mint a tiszta bináris.
+            </div>
+            <div class="info">
+                <strong>Miért bonyolult:</strong> Egy egyszerű "Hello World" Java program több ezer bináris utasításból áll, 
+                beleértve a JVM inicializációt, osztály betöltést, memória kezelést, stb.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🧮 Bináris Számítások Lépésről Lépésre</h2>
+            
+            <h3>Decimális → Bináris Konverzió</h3>
+            <div class="step-by-step">
+                <strong>Példa: 105 → bináris</strong>
+                <div class="calculation">
+                    <div class="calc-step">
+                        <strong>Osztási módszer:</strong><br>
+                        105 ÷ 2 = 52, maradék: 1<br>
+                        52 ÷ 2 = 26, maradék: 0<br>
+                        26 ÷ 2 = 13, maradék: 0<br>
+                        13 ÷ 2 = 6, maradék: 1<br>
+                        6 ÷ 2 = 3, maradék: 0<br>
+                        3 ÷ 2 = 1, maradék: 1<br>
+                        1 ÷ 2 = 0, maradék: 1<br>
+                        <span class="highlight">Felülről lefelé: 1101001</span>
+                    </div>
+                    <div class="calc-step">
+                        <strong>Hatványos módszer:</strong><br>
+                        128 64 32 16 8 4 2 1<br>
+                        105 = 64 + 32 + 8 + 1<br>
+                        <span class="binary">0 1 1 0 1 0 0 1</span><br>
+                        <span class="highlight">Eredmény: 01101001</span>
+                    </div>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Operátor</th>
+                        <th>A (12 = 1100)</th>
+                        <th>B (7 = 0111)</th>
+                        <th>Lépésenkénti Számítás</th>
+                        <th>Eredmény</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>& (AND)</strong></td>
+                        <td class="binary">1100</td>
+                        <td class="binary">0111</td>
+                        <td>
+                            1&0=0, 1&1=1, 0&1=0, 0&1=0<br>
+                            <span class="binary">→ 0100</span>
+                        </td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td><strong>| (OR)</strong></td>
+                        <td class="binary">1100</td>
+                        <td class="binary">0111</td>
+                        <td>
+                            1|0=1, 1|1=1, 0|1=1, 0|1=1<br>
+                            <span class="binary">→ 1111</span>
+                        </td>
+                        <td>15</td>
+                    </tr>
+                    <tr>
+                        <td><strong>^ (XOR)</strong></td>
+                        <td class="binary">1100</td>
+                        <td class="binary">0111</td>
+                        <td>
+                            1^0=1, 1^1=0, 0^1=1, 0^1=1<br>
+                            <span class="binary">→ 1011</span>
+                        </td>
+                        <td>11</td>
+                    </tr>
+                    <tr>
+                        <td><strong><< (Bal shift)</strong></td>
+                        <td class="binary">1100</td>
+                        <td>2 pozíció</td>
+                        <td>
+                            Balra tolás, nullák jobbról<br>
+                            <span class="binary">1100 → 110000</span>
+                        </td>
+                        <td>48</td>
+                    </tr>
+                    <tr>
+                        <td><strong>>> (Jobb shift)</strong></td>
+                        <td class="binary">1100</td>
+                        <td>2 pozíció</td>
+                        <td>
+                            Jobbra tolás, előjel kiterjesztés<br>
+                            <span class="binary">1100 → 11</span>
+                        </td>
+                        <td>3</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>👋 "Hello World" Bitwise Operátorokkal</h2>
+            
+            <div class="tabs">
+                <div class="tab active" onclick="showTab('cpp')">C/C++</div>
+                <div class="tab" onclick="showTab('java')">Java</div>
+                <div class="tab" onclick="showTab('kotlin')">Kotlin</div>
+            </div>
+            
+            <div id="cpp" class="tab-content active">
+                <h3>C/C++ Implementáció</h3>
+                <div class="code-block">
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+// Karakterek bináris reprezentációja
+const int H = 0b01001000;  // 72
+const int e = 0b01100101;  // 101  
+const int l = 0b01101100;  // 108
+const int o = 0b01101111;  // 111
+const int space = 0b00100000; // 32
+const int W = 0b01010111;  // 87
+const int r = 0b01110010;  // 114
+const int d = 0b01100100;  // 100
+const int excl = 0b00100001; // 33
+
+void printCharUsingBitwise(int ascii) {
+    // Bitwise művelet: karakterkód ellenőrzése
+    if ((ascii & 0b11100000) != 0) {  // Érvényes ASCII tartomány
+        std::cout << char(ascii);
+    }
+}
+
+int main() {
+    // "Hello World!" bitwise operátorokkal
+    int message[] = {
+        H, e, l, l, o, space,
+        W, o, r, l, d, excl
+    };
+    
+    for (int i = 0; i < 12; i++) {
+        // XOR titkosítás/dekódolás példa
+        int encrypted = message[i] ^ 0b00000001;  // XOR 1-gyel
+        int decrypted = encrypted ^ 0b00000001;   // Visszafejtés
+        
+        printCharUsingBitwise(decrypted);
+        
+        // Bit manipuláció: páros pozíción uppercase
+        if ((i & 1) == 0 && decrypted >= 97 && decrypted <= 122) {
+            // Kisbetű -> nagybetű (bit 5 törlése)
+            int uppercase = decrypted & ~0b00100000;
+            std::cout << "(" << char(uppercase) << ")";
+        }
+    }
+    
+    std::cout << std::endl;
+    
+    // Bináris számítások kiírása
+    std::cout << "\nBitwise műveletek:" << std::endl;
+    std::cout << "H (72) bináris: ";
+    for (int i = 7; i >= 0; i--) {
+        std::cout << ((H >> i) & 1);
+    }
+    std::cout << std::endl;
+    
+    return 0;
+}
+                </div>
+            </div>
+            
+            <div id="java" class="tab-content">
+                <h3>Java Implementáció</h3>
+                <div class="code-block">
+public class BitwiseHelloWorld {
+    // Karakterkódok bináris formában
+    private static final int H = 0b01001000;  // 72
+    private static final int e = 0b01100101;  // 101
+    private static final int l = 0b01101100;  // 108
+    private static final int o = 0b01101111;  // 111
+    private static final int SPACE = 0b00100000; // 32
+    private static final int W = 0b01010111;  // 87
+    private static final int r = 0b01110010;  // 114
+    private static final int d = 0b01100100;  // 100
+    private static final int EXCL = 0b00100001; // 33
+    
+    public static void main(String[] args) {
+        int[] message = {H, e, l, l, o, SPACE, W, o, r, l, d, EXCL};
+        
+        System.out.print("Bitwise Hello World: ");
+        
+        for (int i = 0; i < message.length; i++) {
+            char c = (char) message[i];
+            
+            // Bitwise ellenőrzés: nagybetű-e?
+            if ((c & 0b11100000) == 0b01000000) {
+                // Kisbetűvé alakítás (bit 5 beállítása)
+                c = (char) (c | 0b00100000);
+            }
+            
+            // Pozíció alapján módosítás
+            if ((i & 1) == 0) {  // Páros pozíció
+                // Bit rotáció egy hellyel
+                int rotated = ((message[i] << 1) | (message[i] >>> 7)) & 0xFF;
+                // Visszaforgatás
+                rotated = ((rotated >>> 1) | (rotated << 7)) & 0xFF;
+                c = (char) rotated;
+            }
+            
+            System.out.print(c);
+        }
+        
+        System.out.println();
+        
+        // Bitwise elemzés kiírása
+        System.out.println("\nBitwise elemzés:");
+        System.out.println("'H' & 'e' = " + (H & e) + " (karakter: " + (char)(H & e) + ")");
+        System.out.println("'o' | 'W' = " + (o | W));
+        System.out.println("'l' ^ 'l' = " + (l ^ l) + " (azonos karakterek XOR-ja mindig 0)");
+        
+        // Gyors hatványozás bitwise-szal
+        System.out.println("2^3 = " + (1 << 3));
+        System.out.println("16/4 = " + (16 >> 2));
+    }
+}
+                </div>
+            </div>
+            
+            <div id="kotlin" class="tab-content">
+                <h3>Kotlin Implementáció</h3>
+                <div class="code-block">
+fun main() {
+    // Karakterkódok konstansként
+    val chars = mapOf(
+        'H' to 0b01001000,  // 72
+        'e' to 0b01100101,  // 101
+        'l' to 0b01101100,  // 108
+        'o' to 0b01101111,  // 111
+        ' ' to 0b00100000,  // 32
+        'W' to 0b01010111,  // 87
+        'r' to 0b01110010,  // 114
+        'd' to 0b01100100,  // 100
+        '!' to 0b00100001   // 33
+    )
+    
+    val message = "Hello World!"
+    
+    print("Bitwise Hello World: ")
+    
+    message.forEachIndexed { index, expectedChar ->
+        val binaryValue = chars[expectedChar] ?: 0
+        
+        // Bitwise ellenőrzések és módosítások
+        var processedValue = binaryValue
+        
+        // Ha páratlan pozíció, XOR művelet
+        if ((index and 1) == 1) {
+            processedValue = processedValue xor 0b00000000  // Változatlan marad
+        }
+        
+        // Karakter dekódolás bitwise-szal
+        val decodedChar = when {
+            (processedValue and 0b11000000) == 0b01000000 -> {
+                // ASCII betű tartomány
+                processedValue.toChar()
+            }
+            (processedValue and 0b11100000) == 0b00100000 -> {
+                // Speciális karakterek (space, !)
+                processedValue.toChar()
+            }
+            else -> '?'
+        }
+        
+        print(decodedChar)
+    }
+    
+    println()
+    
+    // Bitwise műveletek demonstrációja
+    println("\nKotlin Bitwise műveletek:")
+    val a = chars['H'] ?: 0
+    val b = chars['e'] ?: 0
+    
+    println("H and e = ${a and b} = '${(a and b).toChar()}'")
+    println("H or e = ${a or b}")
+    println("H xor e = ${a xor b}")
+    println("H shl 1 = ${a shl 1} (dupla)")
+    println("H shr 1 = ${a shr 1} (fele)")
+    
+    // Bitwise segédfüggvények
+    fun isPowerOfTwo(n: Int): Boolean = n > 0 && (n and (n - 1)) == 0
+    fun setBit(n: Int, pos: Int): Int = n or (1 shl pos)
+    fun clearBit(n: Int, pos: Int): Int = n and (1 shl pos).inv()
+    
+    println("\nSegédfüggvények:")
+    println("72 hatványa-e 2-nek? ${isPowerOfTwo(72)}")
+    println("64 hatványa-e 2-nek? ${isPowerOfTwo(64)}")
+    println("setBit(72, 0) = ${setBit(72, 0)}")  // 73
+    println("clearBit(72, 3) = ${clearBit(72, 3)}")  // 64
+}
+
+// Bináris string reprezentáció
+fun Int.toBinaryString(): String {
+    return (7 downTo 0).map { 
+        if ((this shr it) and 1 == 1) '1' else '0' 
+    }.joinToString("")
+}
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Gyakorlati Alkalmazások</h2>
+            <div class="calculation">
+                <div class="calc-step">
+                    <h4>🎮 Játékfejlesztés</h4>
+                    • Gyors ütközésdetekció<br>
+                    • Sprite animáció<br>
+                    • Memória optimalizálás<br>
+                    • Színkezelés (RGB)
+                </div>
+                <div class="calc-step">
+                    <h4>🔒 Kriptográfia</h4>
+                    • XOR titkosítás<br>
+                    • Hash algoritmusok<br>
+                    • Pseudo-random generátorok<br>
+                    • Bit scrambling
+                </div>
+                <div class="calc-step">
+                    <h4>🌐 Hálózat</h4>
+                    • IP címek kezelése<br>
+                    • Protokoll headerek<br>
+                    • Checksum számítás<br>
+                    • Routing táblák
+                </div>
+                <div class="calc-step">
+                    <h4>🔧 Embedded</h4>
+                    • GPIO vezérlés<br>
+                    • Register manipuláció<br>
+                    • Interrupt kezelés<br>
+                    • Memória spórolás
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

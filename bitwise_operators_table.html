@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitwise Operátorok</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        th {
+            background: rgba(255, 255, 255, 0.2);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9em;
+        }
+        
+        tr:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.01);
+            transition: all 0.3s ease;
+        }
+        
+        .operator {
+            font-family: 'Courier New', monospace;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #4ecdc4;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .binary {
+            font-family: 'Courier New', monospace;
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+        
+        .example-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #4ecdc4;
+        }
+        
+        .example-section h3 {
+            color: #4ecdc4;
+            margin-top: 0;
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            border-left: 3px solid #ff6b6b;
+        }
+        
+        .language-support {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .lang-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .lang-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .performance-tip {
+            background: linear-gradient(45deg, rgba(255, 107, 107, 0.2), rgba(78, 205, 196, 0.2));
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .highlight {
+            background: rgba(255, 255, 0, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Bitwise Operátorok Referencia</h1>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Operátor</th>
+                        <th>Név</th>
+                        <th>Leírás</th>
+                        <th>Példa (A=12, B=7)</th>
+                        <th>Eredmény</th>
+                        <th>Bináris Forma</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="operator">&</td>
+                        <td><strong>AND (ÉS)</strong></td>
+                        <td>Bit 1 lesz, ha mindkét operandusban 1</td>
+                        <td>A & B</td>
+                        <td>4</td>
+                        <td class="binary">1100 & 0111 = 0100</td>
+                    </tr>
+                    <tr>
+                        <td class="operator">|</td>
+                        <td><strong>OR (VAGY)</strong></td>
+                        <td>Bit 1 lesz, ha legalább egy operandusban 1</td>
+                        <td>A | B</td>
+                        <td>15</td>
+                        <td class="binary">1100 | 0111 = 1111</td>
+                    </tr>
+                    <tr>
+                        <td class="operator">^</td>
+                        <td><strong>XOR (Kizáró VAGY)</strong></td>
+                        <td>Bit 1 lesz, ha pontosan egy operandusban 1</td>
+                        <td>A ^ B</td>
+                        <td>11</td>
+                        <td class="binary">1100 ^ 0111 = 1011</td>
+                    </tr>
+                    <tr>
+                        <td class="operator">~</td>
+                        <td><strong>NOT (NEM/Komplement)</strong></td>
+                        <td>Minden bit invertálása (0→1, 1→0)</td>
+                        <td>~A</td>
+                        <td>-13</td>
+                        <td class="binary">~1100 = ...11110011</td>
+                    </tr>
+                    <tr>
+                        <td class="operator"><<</td>
+                        <td><strong>Bal Shift</strong></td>
+                        <td>Biteket balra tolja, nullákkal tölt fel</td>
+                        <td>A << 2</td>
+                        <td>48</td>
+                        <td class="binary">1100 << 2 = 110000</td>
+                    </tr>
+                    <tr>
+                        <td class="operator">>></td>
+                        <td><strong>Jobb Shift</strong></td>
+                        <td>Biteket jobbra tolja</td>
+                        <td>A >> 2</td>
+                        <td>3</td>
+                        <td class="binary">1100 >> 2 = 11</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="example-section">
+            <h3>🚀 Gyakorlati Példák C/C++-ban</h3>
+            <div class="code-block">
+// Páros/páratlan ellenőrzés (gyorsabb mint % 2)<br>
+bool isEven(int n) { return (n & 1) == 0; }<br><br>
+
+// Gyors szorzás/osztás 2 hatványaival<br>
+int multiply_by_8(int x) { return x << 3; }  // x * 8<br>
+int divide_by_4(int x) { return x >> 2; }    // x / 4<br><br>
+
+// Bit beállítása/törlése<br>
+int setBit(int n, int pos) { return n | (1 << pos); }<br>
+int clearBit(int n, int pos) { return n & ~(1 << pos); }<br>
+int toggleBit(int n, int pos) { return n ^ (1 << pos); }
+            </div>
+        </div>
+
+        <div class="example-section">
+            <h3>☕ Java/Kotlin Példák</h3>
+            <div class="code-block">
+// Java/Kotlin<br>
+fun isPowerOfTwo(n: Int): Boolean = n > 0 && (n and (n - 1)) == 0<br><br>
+
+// Unsigned right shift (Java/Kotlin csak)<br>
+val result = number ushr 2  // Kotlin<br>
+int result = number >>> 2;  // Java<br><br>
+
+// Bit manipuláció<br>
+val flags = 0b1010_1100<br>
+val hasFlag = (flags and 0b0000_0100) != 0
+            </div>
+        </div>
+
+        <h3>🌍 Nyelvi Támogatás</h3>
+        <div class="language-support">
+            <div class="lang-card">
+                <strong>C/C++</strong><br>
+                Teljes támogatás<br>
+                Natív sebességű
+            </div>
+            <div class="lang-card">
+                <strong>Java</strong><br>
+                Teljes támogatás<br>
+                + unsigned shift
+            </div>
+            <div class="lang-card">
+                <strong>Kotlin</strong><br>
+                Funkciók formájában<br>
+                (and, or, xor, shl, shr)
+            </div>
+            <div class="lang-card">
+                <strong>Assembly</strong><br>
+                Direkt gépi utasítások<br>
+                Leggyorsabb
+            </div>
+            <div class="lang-card">
+                <strong>Python</strong><br>
+                Teljes támogatás<br>
+                Lassabb végrehajtás
+            </div>
+            <div class="lang-card">
+                <strong>JavaScript</strong><br>
+                32-bit korlátozott<br>
+                Automatikus konverzió
+            </div>
+        </div>
+
+        <div class="performance-tip">
+            <h3>⚡ Teljesítmény Tippek</h3>
+            <p><span class="highlight">Igen, gyorsabbak!</span> A bitwise operátorok gyakran gyorsabbak, mert:</p>
+            <ul>
+                <li><strong>Közvetlen gépi utasítások</strong> - 1 CPU ciklus alatt végrehajthatók</li>
+                <li><strong>Shift operátorok</strong> gyorsabbak mint szorzás/osztás</li>
+                <li><strong>Bit tesztek</strong> gyorsabbak mint modulo műveletek</li>
+                <li><strong>Flag kezelés</strong> memória hatékony</li>
+            </ul>
+            
+            <p><strong>Mikor használd:</strong></p>
+            <ul>
+                <li>Grafikai programozás (RGB színek manipulációja)</li>
+                <li>Hálózati protokollok (header mezők)</li>
+                <li>Embedded rendszerek (memória spórolás)</li>
+                <li>Kriptográfia és hash algoritmusok</li>
+                <li>Játékfejlesztés (gyors matematika)</li>
+            </ul>
+        </div>
+
+        <div class="example-section">
+            <h3>🎯 Történelmi Kontextus</h3>
+            <p>Igen, a gépi kód és assembly az elsődleges szint ahol ezek működnek. Bár a FORTRAN (1957) előbb volt, 
+            a C (1972) és C++ (1985) tette ezeket széles körben elérhetővé. A bitwise operátorok közvetlenül 
+            megfelelnek a processzor ALU (Arithmetic Logic Unit) utasításainak.</p>
+        </div>
+    </div>
+</body>
+</html>
