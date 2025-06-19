@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1750293624 source:e:\programming fontos\c\projects\11_convert_minutes_to_years_and_days\main.c
+	<stdio.h>
+	<stdlib.h>
+
