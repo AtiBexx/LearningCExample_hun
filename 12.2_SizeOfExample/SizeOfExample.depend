@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1750295701 source:e:\programming fontos\c\projects\sizeofexample\main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+
