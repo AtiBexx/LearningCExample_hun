@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1750416400 source:e:\programming fontos\c\projects\17.3_do_while\main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+
