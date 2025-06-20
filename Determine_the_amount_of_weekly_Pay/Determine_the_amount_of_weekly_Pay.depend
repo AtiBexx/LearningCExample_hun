@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1750393378 source:e:\programming fontos\c\projects\determine_the_amount_of_weekly_pay\main.c
+	<stdio.h>
+	<stdlib.h>
+
